@@ -1,0 +1,58 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Scuttle build",
+            "type": "shell",
+            "command": "cc build.c && ./a.out build-debugger",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Build file",
+            "type": "shell",
+            "command": "cc -ggdb -g3 build.c",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Start winedbg server",
+            "command": "winedbg",
+            "args": ["--gdb", "--no-start", "--port", "1234", "./a.exe"],
+            "problemMatcher": [],
+            "isBackground": true,
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            "label": "Close winedbg server",
+            "command": "pkill winedbg.exe",
+            "problemMatcher": [],
+            "isBackground": true,
+            "presentation": {
+                "reveal": "silent"
+            }
+        }
+    ]
+}

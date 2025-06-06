@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Scuttle Debug",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Scuttle",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "type": "cppdbg",
+            "preLaunchTask": "Scuttle build"
+        },
+        {
+            "name": "Debug file",
+            "request": "launch",
+            "program": "${workspaceFolder}/a.out",
+            "cwd": "${workspaceFolder}",
+            "type": "cppdbg"
+        },
+        {
+            "name": "Debug with winedbg",
+            "type": "cppdbg",
+            "request": "launch",
+            "miDebuggerServerAddress": "localhost:1234",
+            "program": "${workspaceFolder}/a.exe",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Start winedbg server",
+            "postDebugTask": "Close winedbg server"
+        }
+    ]
+}
