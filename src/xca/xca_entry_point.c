@@ -3,14 +3,14 @@
 #include "../window_layer/window_layer_include.h"
 #include "../draw/draw_include.h"
 #include "../render/render_include.h"
-#include "../scuttle/scuttle_include.h"
+#include "../xca/xca_include.h"
 
 #include "../base/base_include.c"
 #include "../os/os_include.c"
 #include "../window_layer/window_layer_include.c"
 #include "../draw/draw_include.c"
 #include "../render/render_include.c"
-#include "../scuttle/scuttle_include.c"
+#include "../xca/xca_include.c"
 
 internal void 
 gen_next(I32 *tilemap, I32 width, I32 height) 
@@ -70,6 +70,10 @@ entry_point(char *argv[])
     // Tilemap Init ===========================================================
     U32 tile_height = 30;
     U32 tile_width = 30;
+
+#define TILEMAP_COUNT_X 25
+#define TILEMAP_COUNT_Y 25
+
     I32 tilemap[TILEMAP_COUNT_Y][TILEMAP_COUNT_X];
     mem_set(tilemap, 0, sizeof(tilemap));
     for (I32 i = 0; i < TILEMAP_COUNT_X/5; i++)

@@ -10,7 +10,7 @@
 
 #define PROJECT_NAME    "Scuttle"
 #define PROJECT_VERSION "0.1"
-#define BUILD_MAIN_FILE "src/scuttle/scuttle_entry_point.c"
+#define BUILD_MAIN_FILE "src/xca/xca_entry_point.c"
 #define BUILD_DIR       "build"
 
 const char *help_message = "build.c: C file that build's C projects.\n"
@@ -20,7 +20,6 @@ const char *help_message = "build.c: C file that build's C projects.\n"
 "   run                     Run project\n"
 "   build-run               Build and Run project\n"
 "   build-debugger          Build for Debugger\n"
-"   test                    Test project (Require: valgrid, typos)\n"
 "   version --version -v    Print project version\n"
 "   help --help -h          Print help\n";
 
@@ -41,7 +40,7 @@ internal void build_compile_cc(char *cmd) {
     build_cmd_append(cmd, "  -Wno-incompatible-pointer-types -Wno-override-init");
     // Libs
     // NOTE(ak): to libs parameters `pkg-config --static --libs xcb`
-    build_cmd_append(cmd, " -lm -lxcb -lXau -lXdmcp -lxcb-image -lX11");
+    build_cmd_append(cmd, " -lxcb -lXau -lXdmcp -lxcb-image");
 }
 
 internal void build_compile(char *cmd)
@@ -54,8 +53,6 @@ internal void build_compile(char *cmd)
     build_compile_cc(cmd);
     // Disable useless warnings
     build_cmd_append(cmd, " -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function -Wno-unused-but-set-variable -Wno-missing-braces");
-    // build_cmd_append(cmd, " -static");
-    build_cmd_append(cmd, " -fsanitize=address");
     build_cmd_finish(cmd);
 }
 
@@ -76,25 +73,6 @@ internal void build_debugger(char *cmd)
     build_compile_cc(cmd);
     // Disable useless warnings
     build_cmd_append(cmd, " -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function -Wno-unused-but-set-variable -Wno-missing-braces");
-    // build_cmd_append(cmd, " -static");
-    build_cmd_finish(cmd);
-}
-
-internal void build_test(char *cmd)
-{
-    build_compile_cc(cmd);
-    build_cmd_append(cmd, " -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function -Wno-missing-braces");
-    build_cmd_finish(cmd);
-
-    printf("Test Typos:\n");
-    build_cmd_append(cmd, "typos");
-    build_cmd_finish(cmd);
-
-    printf("Test Memory Leaks:\n");
-    build_cmd_append(cmd, "valgrind ");
-    build_cmd_append(cmd, " --leak-check=full --track-origins=yes ");
-    build_cmd_append(cmd, "./"BUILD_DIR"/"PROJECT_NAME);
-    build_cmd_append(cmd, " --leak-check=full --show-leak-kinds=all");
     build_cmd_finish(cmd);
 }
 
@@ -115,8 +93,6 @@ internal void entry_point(char *argv[])
         build_debugger(cmd);
     } else if (str8_match(str8_from_cstr(option), str8("run"))) {
         build_run(cmd);
-    } else if (str8_match(str8_from_cstr(option), str8("test"))) {
-        build_test(cmd);
     } else if (
         str8_match(str8_from_cstr(option), str8("version")) ||
         str8_match(str8_from_cstr(option), str8("--version")) ||

@@ -7,12 +7,21 @@ Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) [cellular
 automata](https://en.wikipedia.org/wiki/Cellular_automaton) using the
 [XCB](https://xcb.freedesktop.org/) library.
 
+
+## Dependences:
+
+- **GCC**: C Compiler
+- **XCB**: X protocol C-language Binding is a replacement for Xlib
+- **libxcb-image**: XCB port of Xlib's XImage and XShmImage functions.
+
+Command to install Dependences in Debain based systems:
+```sh
+sudo apt install gcc libxcb-image0-dev libxcb1-dev
+```
+
 ## Building and Running 
 
-This only works on Linux machines.
-
-Dependences:
-- 
+**Note**: This project is compatible only with Linux systems.
 
 ```c
 cc build.c && ./a.out build-run
