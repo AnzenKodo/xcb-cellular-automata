@@ -14,7 +14,7 @@ automata](https://en.wikipedia.org/wiki/Cellular_automaton) using the
 - **XCB**: X protocol C-language Binding is a replacement for Xlib
 - **libxcb-image**: XCB port of Xlib's XImage and XShmImage functions.
 
-Command to install Dependences in Debain based systems:
+Command to install Dependences in Debian based systems:
 ```sh
 sudo apt install gcc libxcb-image0-dev libxcb1-dev
 ```

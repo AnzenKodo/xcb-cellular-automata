@@ -107,7 +107,7 @@ internal Wl_Event wl_get_event(void)
     Wl_Event event = ZERO_STRUCT;
     xcb_generic_event_t *xcb_event;
 
-    if ((xcb_event = xcb_wait_for_event(wl_linux_state.conn)))
+    while ((xcb_event = xcb_poll_for_event(wl_linux_state.conn)))
     {
         switch (xcb_event->response_type & ~0x80)
         {
